@@ -6,7 +6,7 @@ This is a full-stack web application built for managing students, teachers, thes
 
 - **Frontend**: React, Bootstrap
 - **Backend**: Spring Boot (Java)
-- **Database**: (e.g., MySQL or PostgreSQL)
+- **Database**: (MySQL)
 - **Authentication**: JWT
 
 ## 📦 Features
