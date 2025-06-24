@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const StudentSearchForm = ({ filters, onChange, onSearch }) => {
+const TeacherSearchForm = ({ filters, onChange, onSearch }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,10 +46,10 @@ const StudentSearchForm = ({ filters, onChange, onSearch }) => {
         <div className="col">
           <input
             type="text"
-            name="studentNumber"
+            name="teacherNumber"
             className="form-control"
-            placeholder="Student Number"
-            value={filters.studentNumber}
+            placeholder="teacher Number"
+            value={filters.teacherNumber}
             onChange={handleInputChange}
           />
         </div>
@@ -63,4 +63,4 @@ const StudentSearchForm = ({ filters, onChange, onSearch }) => {
   );
 };
 
-export default StudentSearchForm;
+export default TeacherSearchForm;

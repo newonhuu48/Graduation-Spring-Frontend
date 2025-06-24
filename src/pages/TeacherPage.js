@@ -9,18 +9,18 @@ import PageNumberSelector from '../components/PageNumberSelector';
 import usePagination from '../hooks/usePagination'
 
 //Page-Specific Components
-import StudentSearchForm from '../components/students/StudentSearchForm';
-import StudentTable from '../components/students/StudentTable';
+import TeacherSearchForm from '../components/teachers/TeacherSearchForm';
+import TeacherTable from '../components/teachers/TeacherTable';
 
 
 
-const StudentPage = () => {
+const TeacherPage = () => {
 
   //Filtering Hook
   const [filters, setFilters] = useState({
     firstName: '',
     lastName: '',
-    studentNumber: ''
+    teacherNumber: ''
   });
 
   // Pagination Hooks
@@ -40,11 +40,11 @@ const StudentPage = () => {
 
 
   //Data Hook
-  const [students, setStudents] = useState([]);
+  const [teachers, setTeachers] = useState([]);
 
 
 
-  const fetchStudents = () => {
+  const fetchTeachers = () => {
     const params = {
       pageNumber,
       pageSize,
@@ -53,17 +53,17 @@ const StudentPage = () => {
       ...filters,
     };
 
-    api.get('/api/students', { params })
+    api.get('/api/teachers', { params })
       .then(res => {
-        setStudents(res.data.content); // assuming Spring pagination response with content array
+        setTeachers(res.data.content); // assuming Spring pagination response with content array
         setTotalPages(res.data.totalPages);
       })
-      .catch(err => console.error("Error fetching students", err));
+      .catch(err => console.error("Error fetching teachers", err));
   };
 
   //Refetch when Page or PageSize changes
   useEffect(() => {
-    fetchStudents();
+    fetchTeachers();
   }, [pageNumber, pageSize, sortField, sortDir]);
 
 
@@ -81,7 +81,7 @@ const StudentPage = () => {
   //Filtering Handler
   const handleSearch = () => {
     setPageNumber(0); // reset to first page on new search
-    fetchStudents();
+    fetchTeachers();
   };
 
   //Sorting Handler
@@ -100,14 +100,14 @@ const StudentPage = () => {
     <div className="container">
 
       <HeaderNavbar />
-      <h2>Student List</h2>
+      <h2>Teacher List</h2>
 
-      {/* Add New Student Button*/}
-      <Link to="/students/create" className="btn btn-primary mb-3">
-        Add New Student
+      {/* Add New Teacher Button*/}
+      <Link to="/teachers/create" className="btn btn-primary mb-3">
+        Add New Teacher
       </Link>
 
-      <StudentSearchForm
+      <TeacherSearchForm
         filters={filters}
         onChange={setFilters}
         onSearch={handleSearch}
@@ -120,8 +120,8 @@ const StudentPage = () => {
       />
 
 
-      <StudentTable
-        students={students}
+      <TeacherTable
+        teachers={teachers}
         sortField={sortField}
         sortDir={sortDir}
         onSort={handleSort}
@@ -138,4 +138,4 @@ const StudentPage = () => {
   );
 };
 
-export default StudentPage;
+export default TeacherPage;

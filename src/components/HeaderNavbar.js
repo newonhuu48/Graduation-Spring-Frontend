@@ -6,13 +6,22 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
 
-      <Link className="navbar-brand text-light mr-2" to="/">
+      <Link to="/" className="navbar-brand text-light mr-2">
         Home Menu
       </Link>
 
-      <Link className="navbar-brand text-light mx-2" to="/students">
+      <Link to="/students" className="navbar-brand text-light mx-2">
         Students
       </Link>
+
+      <Link to="/teachers" className="navbar-brand text-light mx-2">
+        Teachers
+      </Link>
+
+      <Link to="/theses/submitted" className="navbar-brand text-light mx-2">
+        Submitted Theses
+      </Link>
+
 
       <button
         className="navbar-toggler"

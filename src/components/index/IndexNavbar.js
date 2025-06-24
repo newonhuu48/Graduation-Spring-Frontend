@@ -8,23 +8,23 @@ function IndexNavbar() {
 
 
         <div className="col-md-6">
-          <Link to="students" className="btn btn-primary w-100 h-100 shadow-sm d-flex justify-content-center align-items-center">
+          <Link to="students" className="btn btn-primary w-100 h-100 py-3 shadow-sm d-flex justify-content-center align-items-center">
             Students List
           </Link>
         </div>
 
 
         <div className="col-md-6">
-            <div className="p-3 border rounded">
-                <a href="api/teachers"> Teachers List</a>
-            </div>
+          <Link to="teachers" className="btn btn-primary w-100 h-100 py-3 shadow-sm d-flex justify-content-center align-items-center">
+            Teachers List
+          </Link>
         </div>
 
 
         <div className="col-md-6">
-            <div className="p-3 border rounded">
-              <a href="/api/theses">Theses List</a>
-            </div>
+          <Link to="/theses/submitted" className="btn btn-primary w-100 h-100 py-3 shadow-sm d-flex justify-content-center align-items-center">
+            Theses List
+          </Link>
         </div>
 
 

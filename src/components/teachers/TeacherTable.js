@@ -1,10 +1,10 @@
 import React from 'react';
-import './StudentTable.css';
+import './TeacherTable.css';
 
 import { Link } from 'react-router-dom';
 
 
-const StudentTable = ({ students, sortField, sortDir, onSort }) => {
+const TeacherTable = ({ teachers, sortField, sortDir, onSort }) => {
   return (
     <table className="table">
       <thead>
@@ -29,8 +29,8 @@ const StudentTable = ({ students, sortField, sortDir, onSort }) => {
           </th>
 
           <th className="bg-light">
-            <button onClick={() => onSort('studentNumber')} className="btn custor-pointer p-0">
-              Student Number {sortField === 'studentNumber' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
+            <button onClick={() => onSort('teacherNumber')} className="btn custor-pointer p-0">
+              Teacher Number {sortField === 'teacherNumber' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
             </button>
           </th>
 
@@ -42,23 +42,23 @@ const StudentTable = ({ students, sortField, sortDir, onSort }) => {
 
       <tbody>
 
-        {students.map(student => (
-          <tr key={student.id}>
-            <td>{student.id}</td>
-            <td>{student.firstName}</td>
-            <td>{student.lastName}</td>
-            <td>{student.studentNumber}</td>
+        {teachers.map(teacher => (
+          <tr key={teacher.id}>
+            <td>{teacher.id}</td>
+            <td>{teacher.firstName}</td>
+            <td>{teacher.lastName}</td>
+            <td>{teacher.teacherNumber}</td>
 
             <td>
               <Link
-                to={`/students/edit/${student.id}`}
+                to={`/teachers/edit/${teacher.id}`}
                 className="btn btn-primary btn-sm shadow-sm mx-1"
               >
                 Edit
               </Link>
 
               <Link
-                to={`/students/delete/${student.id}`}
+                to={`/teachers/delete/${teacher.id}`}
                 className="btn btn-danger btn-sm shadow-sm mx-1"
               >
                 Delete
@@ -76,4 +76,4 @@ const StudentTable = ({ students, sortField, sortDir, onSort }) => {
   );
 };
 
-export default StudentTable;
+export default TeacherTable;

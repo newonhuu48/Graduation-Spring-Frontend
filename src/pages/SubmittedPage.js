@@ -9,18 +9,17 @@ import PageNumberSelector from '../components/PageNumberSelector';
 import usePagination from '../hooks/usePagination'
 
 //Page-Specific Components
-import StudentSearchForm from '../components/students/StudentSearchForm';
-import StudentTable from '../components/students/StudentTable';
+import SubmittedSearchForm from '../components/submitted/SubmittedSearchForm';
+import SubmittedTable from '../components/submitted/SubmittedTable';
 
 
 
-const StudentPage = () => {
+const SubmittedPage = () => {
 
   //Filtering Hook
   const [filters, setFilters] = useState({
-    firstName: '',
-    lastName: '',
-    studentNumber: ''
+    title: '',
+    studentNumber: '',
   });
 
   // Pagination Hooks
@@ -40,11 +39,11 @@ const StudentPage = () => {
 
 
   //Data Hook
-  const [students, setStudents] = useState([]);
+  const [submittedTheses, setSubmittedTheses] = useState([]);
 
 
 
-  const fetchStudents = () => {
+  const fetchSubmittedTheses = () => {
     const params = {
       pageNumber,
       pageSize,
@@ -53,17 +52,17 @@ const StudentPage = () => {
       ...filters,
     };
 
-    api.get('/api/students', { params })
+    api.get('/api/theses/submitted', { params })
       .then(res => {
-        setStudents(res.data.content); // assuming Spring pagination response with content array
+        setSubmittedTheses(res.data.content); // assuming Spring pagination response with content array
         setTotalPages(res.data.totalPages);
       })
-      .catch(err => console.error("Error fetching students", err));
+      .catch(err => console.error("Error fetching Submitted Theses", err));
   };
 
   //Refetch when Page or PageSize changes
   useEffect(() => {
-    fetchStudents();
+    fetchSubmittedTheses();
   }, [pageNumber, pageSize, sortField, sortDir]);
 
 
@@ -81,7 +80,7 @@ const StudentPage = () => {
   //Filtering Handler
   const handleSearch = () => {
     setPageNumber(0); // reset to first page on new search
-    fetchStudents();
+    fetchSubmittedTheses();
   };
 
   //Sorting Handler
@@ -95,19 +94,31 @@ const StudentPage = () => {
   };
 
 
+  const handleApprove = async (id) => {
+    try {
+      await api.put(`/api/theses/submitted/${id}/approve`);
+      alert('Thesis approved successfully!');
+      fetchSubmittedTheses(); // refresh the list after approval
+    } catch (error) {
+      console.error('Error approving thesis:', error);
+      alert('Failed to approve thesis. Please try again.');
+    }
+  };
+
+
 
   return (
     <div className="container">
 
       <HeaderNavbar />
-      <h2>Student List</h2>
+      <h2>Submitted Theses List</h2>
 
-      {/* Add New Student Button*/}
-      <Link to="/students/create" className="btn btn-primary mb-3">
-        Add New Student
+      {/* Add New Submitted Button*/}
+      <Link to="/theses/submit" className="btn btn-primary mb-3">
+        Add New Thesis
       </Link>
 
-      <StudentSearchForm
+      <SubmittedSearchForm
         filters={filters}
         onChange={setFilters}
         onSearch={handleSearch}
@@ -120,8 +131,9 @@ const StudentPage = () => {
       />
 
 
-      <StudentTable
-        students={students}
+      <SubmittedTable
+        submittedTheses={submittedTheses}
+        handleApprove={handleApprove}
         sortField={sortField}
         sortDir={sortDir}
         onSort={handleSort}
@@ -138,4 +150,4 @@ const StudentPage = () => {
   );
 };
 
-export default StudentPage;
+export default SubmittedPage;
