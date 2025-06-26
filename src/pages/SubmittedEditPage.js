@@ -44,8 +44,6 @@ function SubmittedEditPage () {
 
   const handleSubmit = (updatedSubmittedThesis) => {
 
-    console.log('Payload sending to backend:', updatedSubmittedThesis);
-
     api.put(`/api/theses/submitted/${updatedSubmittedThesis.id}`, updatedSubmittedThesis)
       .then(() => {
         navigate('/theses/submitted');

@@ -48,7 +48,7 @@ const TeacherSearchForm = ({ filters, onChange, onSearch }) => {
             type="text"
             name="teacherNumber"
             className="form-control"
-            placeholder="teacher Number"
+            placeholder="Teacher Number"
             value={filters.teacherNumber}
             onChange={handleInputChange}
           />

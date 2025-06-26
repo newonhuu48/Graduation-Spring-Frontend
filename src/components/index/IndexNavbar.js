@@ -27,11 +27,17 @@ function IndexNavbar() {
           </Link>
         </div>
 
+        <div className="col-md-6">
+          <Link to="/theses/approved" className="btn btn-primary w-100 h-100 py-3 shadow-sm d-flex justify-content-center align-items-center">
+            Approved Theses List
+          </Link>
+        </div>
+
 
         <div className="col-md-6">
-            <div className="p-3 border rounded">
-              <a href="/api/defenses">Defenses List</a>
-            </div>
+          <Link to="/theses/defended" className="btn btn-primary w-100 h-100 py-3 shadow-sm d-flex justify-content-center align-items-center">
+            Defended Theses List
+          </Link>
         </div>
 
 

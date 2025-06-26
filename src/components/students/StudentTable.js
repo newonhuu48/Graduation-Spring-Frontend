@@ -11,25 +11,25 @@ const StudentTable = ({ students, sortField, sortDir, onSort }) => {
         <tr className="">
 
           <th className="bg-light">
-            <button onClick={() => onSort('id')} className="btn custor-pointer p-0">
+            <button onClick={() => onSort('id')} className="btn cursor-pointer p-0">
               ID {sortField === 'id' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
             </button>
           </th>
 
           <th className="bg-light">
-            <button onClick={() => onSort('firstName')} className="btn custor-pointer p-0">
+            <button onClick={() => onSort('firstName')} className="btn cursor-pointer p-0">
               First Name {sortField === 'firstName' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
             </button>
           </th>
 
           <th className="bg-light">
-            <button onClick={() => onSort('lastName')} className="btn custor-pointer p-0">
+            <button onClick={() => onSort('lastName')} className="btn cursor-pointer p-0">
               Last Name {sortField === 'lastName' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
             </button>
           </th>
 
           <th className="bg-light">
-            <button onClick={() => onSort('studentNumber')} className="btn custor-pointer p-0">
+            <button onClick={() => onSort('studentNumber')} className="btn cursor-pointer p-0">
               Student Number {sortField === 'studentNumber' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
             </button>
           </th>

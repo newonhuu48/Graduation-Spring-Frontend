@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import HeaderNavbar from '../components/HeaderNavbar';
 import PageSizeSelector from '../components/PageSizeSelector';
 import PageNumberSelector from '../components/PageNumberSelector';
+
+//Pagination Hook
 import usePagination from '../hooks/usePagination'
 
 //Page-Specific Components

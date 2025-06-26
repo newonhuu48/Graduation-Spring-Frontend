@@ -23,6 +23,15 @@ import SubmittedPage from './pages/SubmittedPage';
 import SubmittedCreatePage from './pages/SubmittedCreatePage';
 import SubmittedEditPage from './pages/SubmittedEditPage';
 
+//Approved Thesis Pages
+import ApprovedPage from './pages/ApprovedPage';
+import DefendedCreatePage from './pages/DefendedCreatePage'; //Accessible from Approved View
+
+//Defended Thesis Page
+import DefendedPage from './pages/DefendedPage';
+import DefendedEditPage from './pages/DefendedEditPage';
+import DefendedDeletePage from './pages/DefendedDeletePage';
+
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -53,7 +62,7 @@ function App() {
   };
 
 
-  if (!claims) {
+  if (!claims || (Date.now() > claims) ) {
     //Not logged in - Force Login
     return (
       <Routes>
@@ -83,6 +92,15 @@ function App() {
         <Route path="/theses/submitted" element={<SubmittedPage />} />
         <Route path="/theses/submit" element={<SubmittedCreatePage />} />
         <Route path="/theses/submitted/:id/edit" element={<SubmittedEditPage />} />
+
+        {/* Approved Theses*/}
+        <Route path="/theses/approved" element={<ApprovedPage />} />
+        <Route path="/theses/approved/:id/defend" element={< DefendedCreatePage />} />
+
+        {/* Defended Theses*/}
+        <Route path="/theses/defended" element={<DefendedPage />} />
+        <Route path="/theses/defended/:id/edit" element={<DefendedEditPage />} />
+        <Route path="/theses/defended/:id/delete" element={< DefendedDeletePage />} />
 
 
      {/* Add other pages here */}

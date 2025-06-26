@@ -22,6 +22,14 @@ const Navbar = () => {
         Submitted Theses
       </Link>
 
+      <Link to="/theses/approved" className="navbar-brand text-light mx-2">
+        Approved Theses
+      </Link>
+
+      <Link to="/theses/defended" className="navbar-brand text-light mx-2">
+        Defended Theses
+      </Link>
+
 
       <button
         className="navbar-toggler"
