@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import api from '../api/axios';
+import api from 'api/axios';
 
-import StudentDeleteForm from '../components/students/StudentDeleteForm';
+import StudentDeleteForm from 'components/students/StudentDeleteForm';
 
 
 function StudentDeletePage() {

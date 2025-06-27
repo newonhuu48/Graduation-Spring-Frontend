@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import api from '../api/axios';
+import api from 'api/axios';
 
 
-import StudentEditForm from '../components/students/StudentEditForm';
+import StudentEditForm from 'components/students/StudentEditForm';
 
 
 function StudentEditPage () {

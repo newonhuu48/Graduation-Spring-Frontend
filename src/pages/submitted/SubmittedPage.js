@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api/axios';
+import api from 'api/axios';
 import { Link } from 'react-router-dom';
 
 //General Components
-import HeaderNavbar from '../components/HeaderNavbar';
-import PageSizeSelector from '../components/PageSizeSelector';
-import PageNumberSelector from '../components/PageNumberSelector';
+import HeaderNavbar from 'components/HeaderNavbar';
+import PageSizeSelector from 'components/PageSizeSelector';
+import PageNumberSelector from 'components/PageNumberSelector';
 
 //Pagination Hook
-import usePagination from '../hooks/usePagination'
+import usePagination from 'hooks/usePagination'
 
 //Page-Specific Components
-import ApprovedSearchForm from '../components/approved/ApprovedSearchForm';
-import ApprovedTable from '../components/approved/ApprovedTable';
+import SubmittedSearchForm from 'components/submitted/SubmittedSearchForm';
+import SubmittedTable from 'components/submitted/SubmittedTable';
 
 
 
-const ApprovedPage = () => {
+const SubmittedPage = () => {
 
   //Filtering Hook
   const [filters, setFilters] = useState({
@@ -41,11 +41,11 @@ const ApprovedPage = () => {
 
 
   //Data Hook
-  const [approvedTheses, setApprovedTheses] = useState([]);
+  const [submittedTheses, setSubmittedTheses] = useState([]);
 
 
 
-  const fetchApprovedTheses = () => {
+  const fetchSubmittedTheses = () => {
     const params = {
       pageNumber,
       pageSize,
@@ -54,17 +54,17 @@ const ApprovedPage = () => {
       ...filters,
     };
 
-    api.get('/api/theses/approved', { params })
+    api.get('/api/theses/submitted', { params })
       .then(res => {
-        setApprovedTheses(res.data.content); // assuming Spring pagination response with content array
+        setSubmittedTheses(res.data.content); // assuming Spring pagination response with content array
         setTotalPages(res.data.totalPages);
       })
-      .catch(err => console.error("Error fetching Approved Theses", err));
+      .catch(err => console.error("Error fetching Submitted Theses", err));
   };
 
   //Refetch when Page or PageSize changes
   useEffect(() => {
-    fetchApprovedTheses();
+    fetchSubmittedTheses();
   }, [pageNumber, pageSize, sortField, sortDir]);
 
 
@@ -82,7 +82,7 @@ const ApprovedPage = () => {
   //Filtering Handler
   const handleSearch = () => {
     setPageNumber(0); // reset to first page on new search
-    fetchApprovedTheses();
+    fetchSubmittedTheses();
   };
 
   //Sorting Handler
@@ -98,9 +98,9 @@ const ApprovedPage = () => {
 
   const handleApprove = async (id) => {
     try {
-      await api.put(`/api/theses/approved/${id}/approve`);
+      await api.put(`/api/theses/submitted/${id}/approve`);
       alert('Thesis approved successfully!');
-      fetchApprovedTheses(); // refresh the list after approval
+      fetchSubmittedTheses(); // refresh the list after approval
     } catch (error) {
       console.error('Error approving thesis:', error);
       alert('Failed to approve thesis. Please try again.');
@@ -113,9 +113,14 @@ const ApprovedPage = () => {
     <div className="container">
 
       <HeaderNavbar />
-      <h2>Approved Theses List</h2>
+      <h2>Submitted Theses List</h2>
 
-      <ApprovedSearchForm
+      {/* Add New Submitted Button*/}
+      <Link to="/theses/submit" className="btn btn-primary mb-3">
+        Add New Thesis
+      </Link>
+
+      <SubmittedSearchForm
         filters={filters}
         onChange={setFilters}
         onSearch={handleSearch}
@@ -128,8 +133,8 @@ const ApprovedPage = () => {
       />
 
 
-      <ApprovedTable
-        approvedTheses={approvedTheses}
+      <SubmittedTable
+        submittedTheses={submittedTheses}
         handleApprove={handleApprove}
         sortField={sortField}
         sortDir={sortDir}
@@ -147,4 +152,4 @@ const ApprovedPage = () => {
   );
 };
 
-export default ApprovedPage;
+export default SubmittedPage;

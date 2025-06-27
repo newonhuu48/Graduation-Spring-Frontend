@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api/axios';
+import api from 'api/axios';
 import { Link } from 'react-router-dom';
 
 //General Components
-import HeaderNavbar from '../components/HeaderNavbar';
-import PageSizeSelector from '../components/PageSizeSelector';
-import PageNumberSelector from '../components/PageNumberSelector';
+import HeaderNavbar from 'components/HeaderNavbar';
+import PageSizeSelector from 'components/PageSizeSelector';
+import PageNumberSelector from 'components/PageNumberSelector';
 
 //Pagination Hook
-import usePagination from '../hooks/usePagination'
+import usePagination from 'hooks/usePagination'
 
 //Page-Specific Components
-import DefendedSearchForm from '../components/defended/DefendedSearchForm';
-import DefendedTable from '../components/defended/DefendedTable';
+import StudentSearchForm from 'components/students/StudentSearchForm';
+import StudentTable from 'components/students/StudentTable';
 
 
 
-const DefendedPage = () => {
+const StudentPage = () => {
 
   //Filtering Hook
   const [filters, setFilters] = useState({
-    title: '',
-    studentNumber: '',
-    grade: null,
+    firstName: '',
+    lastName: '',
+    studentNumber: ''
   });
 
   // Pagination Hooks
@@ -42,11 +42,11 @@ const DefendedPage = () => {
 
 
   //Data Hook
-  const [defendedTheses, setDefendedTheses] = useState([]);
+  const [students, setStudents] = useState([]);
 
 
 
-  const fetchDefendedTheses = () => {
+  const fetchStudents = () => {
     const params = {
       pageNumber,
       pageSize,
@@ -55,17 +55,17 @@ const DefendedPage = () => {
       ...filters,
     };
 
-    api.get('/api/theses/defended', { params })
+    api.get('/api/students', { params })
       .then(res => {
-        setDefendedTheses(res.data.content); // assuming Spring pagination response with content array
+        setStudents(res.data.content); // assuming Spring pagination response with content array
         setTotalPages(res.data.totalPages);
       })
-      .catch(err => console.error("Error fetching Defended Theses", err));
+      .catch(err => console.error("Error fetching students", err));
   };
 
   //Refetch when Page or PageSize changes
   useEffect(() => {
-    fetchDefendedTheses();
+    fetchStudents();
   }, [pageNumber, pageSize, sortField, sortDir]);
 
 
@@ -83,7 +83,7 @@ const DefendedPage = () => {
   //Filtering Handler
   const handleSearch = () => {
     setPageNumber(0); // reset to first page on new search
-    fetchDefendedTheses();
+    fetchStudents();
   };
 
   //Sorting Handler
@@ -97,26 +97,19 @@ const DefendedPage = () => {
   };
 
 
-  const handleApprove = async (id) => {
-    try {
-      await api.put(`/api/theses/defended/${id}/approve`);
-      alert('Thesis defended successfully!');
-      fetchDefendedTheses(); // refresh the list after approval
-    } catch (error) {
-      console.error('Error approving thesis:', error);
-      alert('Failed to approve thesis. Please try again.');
-    }
-  };
-
-
 
   return (
     <div className="container">
 
       <HeaderNavbar />
-      <h2>Defended Theses List</h2>
+      <h2>Student List</h2>
 
-      <DefendedSearchForm
+      {/* Add New Student Button*/}
+      <Link to="/students/create" className="btn btn-primary mb-3">
+        Add New Student
+      </Link>
+
+      <StudentSearchForm
         filters={filters}
         onChange={setFilters}
         onSearch={handleSearch}
@@ -129,9 +122,8 @@ const DefendedPage = () => {
       />
 
 
-      <DefendedTable
-        defendedTheses={defendedTheses}
-        handleApprove={handleApprove}
+      <StudentTable
+        students={students}
         sortField={sortField}
         sortDir={sortDir}
         onSort={handleSort}
@@ -148,4 +140,4 @@ const DefendedPage = () => {
   );
 };
 
-export default DefendedPage;
+export default StudentPage;

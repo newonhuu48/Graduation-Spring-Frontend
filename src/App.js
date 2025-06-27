@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import LoginForm from './components/LoginForm';
+import LoginForm from 'components/LoginForm';
 
 
 //General Pages
-import IndexPage from './pages/IndexPage';
-import LoginPage from './pages/LoginPage';
+import IndexPage from 'pages/IndexPage';
+import LoginPage from 'pages/LoginPage';
 
 //Student Pages
-import StudentPage from './pages/StudentPage';
-import StudentEditPage from './pages/StudentEditPage';
-import StudentDeletePage from './pages/StudentDeletePage'
-import StudentCreatePage from './pages/StudentCreatePage'
+import StudentPage from 'pages/students/StudentPage';
+import StudentEditPage from 'pages/students/StudentEditPage';
+import StudentDeletePage from 'pages/students/StudentDeletePage'
+import StudentCreatePage from 'pages/students/StudentCreatePage'
 
 //Teacher Pages
-import TeacherPage from './pages/TeacherPage';
-import TeacherEditPage from './pages/TeacherEditPage';
-import TeacherDeletePage from './pages/TeacherDeletePage'
-import TeacherCreatePage from './pages/TeacherCreatePage'
+import TeacherPage from 'pages/teachers/TeacherPage';
+import TeacherEditPage from 'pages/teachers/TeacherEditPage';
+import TeacherDeletePage from 'pages/teachers/TeacherDeletePage'
+import TeacherCreatePage from 'pages/teachers/TeacherCreatePage'
 
 //Submitted Thesis Pages
-import SubmittedPage from './pages/SubmittedPage';
-import SubmittedCreatePage from './pages/SubmittedCreatePage';
-import SubmittedEditPage from './pages/SubmittedEditPage';
+import SubmittedPage from 'pages/submitted/SubmittedPage';
+import SubmittedCreatePage from 'pages/submitted/SubmittedCreatePage';
+import SubmittedEditPage from 'pages/submitted/SubmittedEditPage';
 
 //Approved Thesis Pages
-import ApprovedPage from './pages/ApprovedPage';
-import DefendedCreatePage from './pages/DefendedCreatePage'; //Accessible from Approved View
+import ApprovedPage from 'pages/approved/ApprovedPage';
+import DefendedCreatePage from 'pages/approved/DefendedCreatePage'; //Accessible from Approved View
 
 //Defended Thesis Page
-import DefendedPage from './pages/DefendedPage';
-import DefendedEditPage from './pages/DefendedEditPage';
-import DefendedDeletePage from './pages/DefendedDeletePage';
+import DefendedPage from 'pages/defended/DefendedPage';
+import DefendedEditPage from 'pages/defended/DefendedEditPage';
+import DefendedDeletePage from 'pages/defended/DefendedDeletePage';
 
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';

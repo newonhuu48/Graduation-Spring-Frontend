@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import api from '../api/axios';
+import api from 'api/axios';
 
-import TeacherCreateForm from '../components/teachers/TeacherCreateForm';
+import TeacherCreateForm from 'components/teachers/TeacherCreateForm';
 
 
 function TeacherCreatePage() {

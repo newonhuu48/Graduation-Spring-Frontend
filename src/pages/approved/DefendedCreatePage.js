@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import api from '../api/axios';
+import api from 'api/axios';
 
-import DefendedCreateForm from '../components/defended/DefendedCreateForm';
+import DefendedCreateForm from 'components/defended/DefendedCreateForm';
 
 //DefendedCreatePage belongs to Approved
 //

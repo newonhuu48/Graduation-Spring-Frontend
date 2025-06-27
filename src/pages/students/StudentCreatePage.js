@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import api from '../api/axios';
+import api from 'api/axios';
 
-import StudentCreateForm from '../components/students/StudentCreateForm';
+import StudentCreateForm from 'components/students/StudentCreateForm';
 
 
 function StudentCreatePage() {

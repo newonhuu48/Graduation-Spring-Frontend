@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import api from '../api/axios';
+import api from 'api/axios';
 
-import DefendedDeleteForm from '../components/defended/DefendedDeleteForm';
+import DefendedDeleteForm from 'components/defended/DefendedDeleteForm';
 
 
 function DefendedDeletePage() {

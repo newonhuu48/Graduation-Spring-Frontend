@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api/axios';
+import api from 'api/axios';
 import { Link } from 'react-router-dom';
 
 //General Components
-import HeaderNavbar from '../components/HeaderNavbar';
-import PageSizeSelector from '../components/PageSizeSelector';
-import PageNumberSelector from '../components/PageNumberSelector';
+import HeaderNavbar from 'components/HeaderNavbar';
+import PageSizeSelector from 'components/PageSizeSelector';
+import PageNumberSelector from 'components/PageNumberSelector';
 
 //Pagination Hook
-import usePagination from '../hooks/usePagination'
+import usePagination from 'hooks/usePagination'
 
 //Page-Specific Components
-import SubmittedSearchForm from '../components/submitted/SubmittedSearchForm';
-import SubmittedTable from '../components/submitted/SubmittedTable';
+import TeacherSearchForm from 'components/teachers/TeacherSearchForm';
+import TeacherTable from 'components/teachers/TeacherTable';
 
 
 
-const SubmittedPage = () => {
+const TeacherPage = () => {
 
   //Filtering Hook
   const [filters, setFilters] = useState({
-    title: '',
-    studentNumber: '',
+    firstName: '',
+    lastName: '',
+    teacherNumber: ''
   });
 
   // Pagination Hooks
@@ -41,11 +42,11 @@ const SubmittedPage = () => {
 
 
   //Data Hook
-  const [submittedTheses, setSubmittedTheses] = useState([]);
+  const [teachers, setTeachers] = useState([]);
 
 
 
-  const fetchSubmittedTheses = () => {
+  const fetchTeachers = () => {
     const params = {
       pageNumber,
       pageSize,
@@ -54,17 +55,17 @@ const SubmittedPage = () => {
       ...filters,
     };
 
-    api.get('/api/theses/submitted', { params })
+    api.get('/api/teachers', { params })
       .then(res => {
-        setSubmittedTheses(res.data.content); // assuming Spring pagination response with content array
+        setTeachers(res.data.content); // assuming Spring pagination response with content array
         setTotalPages(res.data.totalPages);
       })
-      .catch(err => console.error("Error fetching Submitted Theses", err));
+      .catch(err => console.error("Error fetching teachers", err));
   };
 
   //Refetch when Page or PageSize changes
   useEffect(() => {
-    fetchSubmittedTheses();
+    fetchTeachers();
   }, [pageNumber, pageSize, sortField, sortDir]);
 
 
@@ -82,7 +83,7 @@ const SubmittedPage = () => {
   //Filtering Handler
   const handleSearch = () => {
     setPageNumber(0); // reset to first page on new search
-    fetchSubmittedTheses();
+    fetchTeachers();
   };
 
   //Sorting Handler
@@ -96,31 +97,19 @@ const SubmittedPage = () => {
   };
 
 
-  const handleApprove = async (id) => {
-    try {
-      await api.put(`/api/theses/submitted/${id}/approve`);
-      alert('Thesis approved successfully!');
-      fetchSubmittedTheses(); // refresh the list after approval
-    } catch (error) {
-      console.error('Error approving thesis:', error);
-      alert('Failed to approve thesis. Please try again.');
-    }
-  };
-
-
 
   return (
     <div className="container">
 
       <HeaderNavbar />
-      <h2>Submitted Theses List</h2>
+      <h2>Teacher List</h2>
 
-      {/* Add New Submitted Button*/}
-      <Link to="/theses/submit" className="btn btn-primary mb-3">
-        Add New Thesis
+      {/* Add New Teacher Button*/}
+      <Link to="/teachers/create" className="btn btn-primary mb-3">
+        Add New Teacher
       </Link>
 
-      <SubmittedSearchForm
+      <TeacherSearchForm
         filters={filters}
         onChange={setFilters}
         onSearch={handleSearch}
@@ -133,9 +122,8 @@ const SubmittedPage = () => {
       />
 
 
-      <SubmittedTable
-        submittedTheses={submittedTheses}
-        handleApprove={handleApprove}
+      <TeacherTable
+        teachers={teachers}
         sortField={sortField}
         sortDir={sortDir}
         onSort={handleSort}
@@ -152,4 +140,4 @@ const SubmittedPage = () => {
   );
 };
 
-export default SubmittedPage;
+export default TeacherPage;

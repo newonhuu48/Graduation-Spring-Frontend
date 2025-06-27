@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import api from '../api/axios';
+import api from 'api/axios';
 
 
-import DefendedEditForm from '../components/defended/DefendedEditForm';
+import DefendedEditForm from 'components/defended/DefendedEditForm';
 
 
 function DefendedEditPage () {

@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api/axios';
+import api from 'api/axios';
 import { Link } from 'react-router-dom';
 
 //General Components
-import HeaderNavbar from '../components/HeaderNavbar';
-import PageSizeSelector from '../components/PageSizeSelector';
-import PageNumberSelector from '../components/PageNumberSelector';
+import HeaderNavbar from 'components/HeaderNavbar';
+import PageSizeSelector from 'components/PageSizeSelector';
+import PageNumberSelector from 'components/PageNumberSelector';
 
 //Pagination Hook
-import usePagination from '../hooks/usePagination'
+import usePagination from 'hooks/usePagination'
 
 //Page-Specific Components
-import TeacherSearchForm from '../components/teachers/TeacherSearchForm';
-import TeacherTable from '../components/teachers/TeacherTable';
+import ApprovedSearchForm from 'components/approved/ApprovedSearchForm';
+import ApprovedTable from 'components/approved/ApprovedTable';
 
 
 
-const TeacherPage = () => {
+const ApprovedPage = () => {
 
   //Filtering Hook
   const [filters, setFilters] = useState({
-    firstName: '',
-    lastName: '',
-    teacherNumber: ''
+    title: '',
+    studentNumber: '',
   });
 
   // Pagination Hooks
@@ -42,11 +41,11 @@ const TeacherPage = () => {
 
 
   //Data Hook
-  const [teachers, setTeachers] = useState([]);
+  const [approvedTheses, setApprovedTheses] = useState([]);
 
 
 
-  const fetchTeachers = () => {
+  const fetchApprovedTheses = () => {
     const params = {
       pageNumber,
       pageSize,
@@ -55,17 +54,17 @@ const TeacherPage = () => {
       ...filters,
     };
 
-    api.get('/api/teachers', { params })
+    api.get('/api/theses/approved', { params })
       .then(res => {
-        setTeachers(res.data.content); // assuming Spring pagination response with content array
+        setApprovedTheses(res.data.content); // assuming Spring pagination response with content array
         setTotalPages(res.data.totalPages);
       })
-      .catch(err => console.error("Error fetching teachers", err));
+      .catch(err => console.error("Error fetching Approved Theses", err));
   };
 
   //Refetch when Page or PageSize changes
   useEffect(() => {
-    fetchTeachers();
+    fetchApprovedTheses();
   }, [pageNumber, pageSize, sortField, sortDir]);
 
 
@@ -83,7 +82,7 @@ const TeacherPage = () => {
   //Filtering Handler
   const handleSearch = () => {
     setPageNumber(0); // reset to first page on new search
-    fetchTeachers();
+    fetchApprovedTheses();
   };
 
   //Sorting Handler
@@ -97,19 +96,26 @@ const TeacherPage = () => {
   };
 
 
+  const handleApprove = async (id) => {
+    try {
+      await api.put(`/api/theses/approved/${id}/approve`);
+      alert('Thesis approved successfully!');
+      fetchApprovedTheses(); // refresh the list after approval
+    } catch (error) {
+      console.error('Error approving thesis:', error);
+      alert('Failed to approve thesis. Please try again.');
+    }
+  };
+
+
 
   return (
     <div className="container">
 
       <HeaderNavbar />
-      <h2>Teacher List</h2>
+      <h2>Approved Theses List</h2>
 
-      {/* Add New Teacher Button*/}
-      <Link to="/teachers/create" className="btn btn-primary mb-3">
-        Add New Teacher
-      </Link>
-
-      <TeacherSearchForm
+      <ApprovedSearchForm
         filters={filters}
         onChange={setFilters}
         onSearch={handleSearch}
@@ -122,8 +128,9 @@ const TeacherPage = () => {
       />
 
 
-      <TeacherTable
-        teachers={teachers}
+      <ApprovedTable
+        approvedTheses={approvedTheses}
+        handleApprove={handleApprove}
         sortField={sortField}
         sortDir={sortDir}
         onSort={handleSort}
@@ -140,4 +147,4 @@ const TeacherPage = () => {
   );
 };
 
-export default TeacherPage;
+export default ApprovedPage;

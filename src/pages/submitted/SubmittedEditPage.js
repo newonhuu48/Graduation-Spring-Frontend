@@ -2,24 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import api from '../api/axios';
+import api from 'api/axios';
 
 
-import TeacherEditForm from '../components/teachers/TeacherEditForm';
+import SubmittedEditForm from 'components/submitted/SubmittedEditForm';
 
 
-function TeacherEditPage () {
+function SubmittedEditPage () {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  //The teacher being edited
-  const [teacher, setTeacher] = useState(null);
+  //The submitted thesis being edited
+  const [submittedThesis, setSubmittedThesis] = useState(null);
 
   //Data in form
   const [formData, setFormData] = useState({
     id: null,
-    firstName: '',
-    lastName: '',
+    title: '',
   });
 
   //Errors
@@ -28,13 +27,12 @@ function TeacherEditPage () {
 
   // Fetch data
   useEffect(() => {
-    api.get(`/api/teachers/${id}/edit`)
+    api.get(`/api/theses/submitted/${id}`)
       .then(response => {
-        setTeacher(response.data);
+        setSubmittedThesis(response.data);
         setFormData({
           id: response.data.id,
-          firstName: response.data.firstName,
-          lastName: response.data.lastName,
+          title: response.data.title,
           // add any other fields you want to edit
         });
       })
@@ -44,11 +42,11 @@ function TeacherEditPage () {
   }, [id]);
 
 
-  const handleSubmit = (updatedTeacher) => {
+  const handleSubmit = (updatedSubmittedThesis) => {
 
-    api.put(`/api/teachers/${updatedTeacher.id}`, updatedTeacher)
+    api.put(`/api/theses/submitted/${updatedSubmittedThesis.id}`, updatedSubmittedThesis)
       .then(() => {
-        navigate('/teachers');
+        navigate('/theses/submitted');
       })
       .catch(err => {
         setError(err.message);
@@ -56,8 +54,8 @@ function TeacherEditPage () {
   };
 
   return (
-    <TeacherEditForm
-        teacher={teacher}
+    <SubmittedEditForm
+        submittedThesis={submittedThesis}
         formData={formData}
         error={error}
         onSubmit={handleSubmit}
@@ -66,4 +64,5 @@ function TeacherEditPage () {
   );
 }
 
-export default TeacherEditPage;
+export default SubmittedEditPage;
+
