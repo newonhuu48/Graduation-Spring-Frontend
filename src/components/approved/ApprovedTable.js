@@ -1,5 +1,9 @@
 import React from 'react';
-import './ApprovedTable.css';
+import 'components/Table.css';
+
+import useClaims from 'hooks/useClaims'
+
+import { RoleGuard } from 'components/RoleGuard';
 
 import { Link } from 'react-router-dom';
 
@@ -35,9 +39,11 @@ const ApprovedTable = ({ approvedTheses, handleApprove, sortField, sortDir, onSo
           </th>
 
 
-          <th className="bg-light">
-            Actions
-          </th>
+          <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+            <th className="bg-light">
+              Actions
+            </th>
+          </RoleGuard>
         </tr>
       </thead>
 
@@ -50,19 +56,19 @@ const ApprovedTable = ({ approvedTheses, handleApprove, sortField, sortDir, onSo
             <td>{approved.studentNumber}</td>
             <td>{approved.studentId}</td>
 
-            <td>
-              <Link
-                to={`/theses/approved/${approved.id}/defend`}
-                className="btn btn-primary btn-sm shadow-sm mx-1"
-              >
-                Defend
-              </Link>
 
+            <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+              <td>
+                  <Link
+                    to={`/theses/approved/${approved.id}/defend`}
+                    className="btn btn-primary btn-sm shadow-sm mx-1"
+                  >
+                    Defend
+                  </Link>
 
-              {/* Change later */}
+              </td>
+            </RoleGuard>
 
-            </td>
-            {/* other cells */}
           </tr>
         ))}
 

@@ -1,10 +1,19 @@
 import React from 'react';
-import './StudentTable.css';
+import 'components/Table.css';
+
+import useClaims from 'hooks/useClaims'
+
+import { RoleGuard } from 'components/RoleGuard';
 
 import { Link } from 'react-router-dom';
 
 
 const StudentTable = ({ students, sortField, sortDir, onSort }) => {
+
+  const claims = useClaims();
+  const userRoles = claims?.roles || [];
+
+
   return (
     <table className="table">
       <thead>
@@ -34,9 +43,11 @@ const StudentTable = ({ students, sortField, sortDir, onSort }) => {
             </button>
           </th>
 
-          <th className="bg-light">
-            Actions
-          </th>
+          <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+            <th className="bg-light">
+              Actions
+            </th>
+          </RoleGuard>
         </tr>
       </thead>
 
@@ -49,25 +60,26 @@ const StudentTable = ({ students, sortField, sortDir, onSort }) => {
             <td>{student.lastName}</td>
             <td>{student.studentNumber}</td>
 
-            <td>
-              <Link
-                to={`/students/edit/${student.id}`}
-                className="btn btn-primary btn-sm shadow-sm mx-1"
-              >
-                Edit
-              </Link>
+            <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+              <td>
+                <Link
+                  to={`/students/edit/${student.id}`}
+                  className="btn btn-primary btn-sm shadow-sm mx-1"
+                >
+                  Edit
+                </Link>
 
-              <Link
-                to={`/students/delete/${student.id}`}
-                className="btn btn-danger btn-sm shadow-sm mx-1"
-              >
-                Delete
-              </Link>
 
-              {/* Change later */}
+                <Link
+                  to={`/students/delete/${student.id}`}
+                  className="btn btn-danger btn-sm shadow-sm mx-1"
+                >
+                  Delete
+                </Link>
 
-            </td>
-            {/* other cells */}
+              </td>
+            </RoleGuard>
+
           </tr>
         ))}
 

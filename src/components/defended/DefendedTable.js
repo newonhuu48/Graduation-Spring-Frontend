@@ -1,5 +1,9 @@
 import React from 'react';
-import './DefendedTable.css';
+import 'components/Table.css';
+
+import useClaims from 'hooks/useClaims'
+
+import { RoleGuard } from 'components/RoleGuard';
 
 import { Link } from 'react-router-dom';
 
@@ -54,9 +58,11 @@ const DefendedTable = ({ defendedTheses, handleApprove, sortField, sortDir, onSo
           </th>
 
 
-          <th className="bg-light">
-            Actions
-          </th>
+          <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+            <th className="bg-light">
+              Actions
+            </th>
+          </RoleGuard>
         </tr>
       </thead>
 
@@ -70,25 +76,25 @@ const DefendedTable = ({ defendedTheses, handleApprove, sortField, sortDir, onSo
             <td>{defended.studentId}</td>
             <td>{GradeDisplayMap[defended.grade].toFixed(2)}</td> {/* Display Grades correctly from Look-up Table */}
 
-            <td>
-              <Link
-                to={`/theses/defended/${defended.id}/edit`}
-                className="btn btn-primary btn-sm shadow-sm mx-1"
-              >
-                Edit
-              </Link>
 
-              <Link
-                to={`/theses/defended/${defended.id}/delete`}
-                className="btn btn-danger btn-sm shadow-sm mx-1"
-              >
-                Delete
-              </Link>
+            <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+              <td>
+                  <Link
+                    to={`/theses/defended/${defended.id}/edit`}
+                    className="btn btn-primary btn-sm shadow-sm mx-1"
+                  >
+                    Edit
+                  </Link>
+                  <Link
+                    to={`/theses/defended/${defended.id}/delete`}
+                    className="btn btn-danger btn-sm shadow-sm mx-1"
+                  >
+                    Delete
+                  </Link>
+              </td>
+            </RoleGuard>
 
-              {/* Change later */}
 
-            </td>
-            {/* other cells */}
           </tr>
         ))}
 

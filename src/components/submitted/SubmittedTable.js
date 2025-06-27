@@ -1,5 +1,9 @@
 import React from 'react';
-import './SubmittedTable.css';
+import 'components/Table.css';
+
+import useClaims from 'hooks/useClaims'
+
+import { RoleGuard } from 'components/RoleGuard';
 
 import { Link } from 'react-router-dom';
 
@@ -35,9 +39,11 @@ const SubmittedTable = ({ submittedTheses, handleApprove, sortField, sortDir, on
           </th>
 
 
-          <th className="bg-light">
-            Actions
-          </th>
+          <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+            <th className="bg-light">
+              Actions
+            </th>
+          </RoleGuard>
         </tr>
       </thead>
 
@@ -50,24 +56,26 @@ const SubmittedTable = ({ submittedTheses, handleApprove, sortField, sortDir, on
             <td>{submitted.studentNumber}</td>
             <td>{submitted.studentId}</td>
 
-            <td>
-              <Link
-                to={`/theses/submitted/${submitted.id}/edit`}
-                className="btn btn-primary btn-sm shadow-sm mx-1"
-              >
-                Edit
-              </Link>
+            <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+              <td>
+                <Link
+                  to={`/theses/submitted/${submitted.id}/edit`}
+                  className="btn btn-primary btn-sm shadow-sm mx-1"
+                >
+                  Edit
+                </Link>
 
-              <button
-                className="btn btn-success btn-sm shadow-sm mx-1"
-                onClick={() => handleApprove(submitted.id)}
-              >
-                Approve
-              </button>
+                <button
+                  className="btn btn-success btn-sm shadow-sm mx-1"
+                  onClick={() => handleApprove(submitted.id)}
+                >
+                  Approve
+                  </button>
 
-              {/* Change later */}
+                {/* Change later */}
 
-            </td>
+              </td>
+            </RoleGuard>
             {/* other cells */}
           </tr>
         ))}

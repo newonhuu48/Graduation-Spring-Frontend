@@ -1,8 +1,14 @@
 import React from 'react';
+
+import useClaims from 'hooks/useClaims'
+import { RoleGuard } from 'components/RoleGuard';
+
 import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
+
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
 
@@ -10,13 +16,18 @@ const Navbar = () => {
         Home Menu
       </Link>
 
-      <Link to="/students" className="navbar-brand text-light mx-2">
-        Students
-      </Link>
 
-      <Link to="/teachers" className="navbar-brand text-light mx-2">
-        Teachers
-      </Link>
+      <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+        <Link to="/students" className="navbar-brand text-light mx-2">
+          Students
+        </Link>
+      </RoleGuard>
+
+      <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+        <Link to="/teachers" className="navbar-brand text-light mx-2">
+          Teachers
+        </Link>
+      </RoleGuard>
 
       <Link to="/theses/submitted" className="navbar-brand text-light mx-2">
         Submitted Theses
@@ -26,9 +37,11 @@ const Navbar = () => {
         Approved Theses
       </Link>
 
-      <Link to="/theses/defended" className="navbar-brand text-light mx-2">
-        Defended Theses
-      </Link>
+      <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+        <Link to="/theses/defended" className="navbar-brand text-light mx-2">
+          Defended Theses
+        </Link>
+      </RoleGuard>
 
 
       <button
