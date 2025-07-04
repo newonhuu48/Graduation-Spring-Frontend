@@ -29,9 +29,17 @@ const Navbar = () => {
         </Link>
       </RoleGuard>
 
-      <Link to="/theses/submitted" className="navbar-brand text-light mx-2">
-        Submitted Theses
-      </Link>
+      <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+        <Link to="/theses/submitted" className="navbar-brand text-light mx-2">
+          Submitted Theses
+        </Link>
+      </RoleGuard>
+
+      <RoleGuard allowedRoles={['ROLE_STUDENT']} >
+        <Link to="/theses/student/my-thesis" className="navbar-brand text-light mx-2">
+          Graduation Thesis
+        </Link>
+      </RoleGuard>
 
       <Link to="/theses/approved" className="navbar-brand text-light mx-2">
         Approved Theses

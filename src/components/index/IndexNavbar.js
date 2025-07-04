@@ -34,13 +34,23 @@ function IndexNavbar() {
         </RoleGuard>
 
 
-        {/* Teacher and Student can view Submitted Theses*/}
-        <div className="col-md-6">
-          <Link to="/theses/submitted" className="btn btn-primary w-100 h-100 py-3 shadow-sm d-flex justify-content-center align-items-center">
-            Theses List
-          </Link>
-        </div>
+        {/* Student can view their own Thesis*/}
+        <RoleGuard allowedRoles={['ROLE_STUDENT']} >
+          <div className="col-md-6">
+            <Link to="/theses/student/my-thesis" className="btn btn-primary w-100 h-100 py-3 shadow-sm d-flex justify-content-center align-items-center">
+              Graduation Thesis
+            </Link>
+          </div>
+        </RoleGuard>
 
+        {/* Teacher can view Submitted Theses*/}
+        <RoleGuard allowedRoles={['ROLE_TEACHER']} >
+          <div className="col-md-6">
+            <Link to="/theses/submitted" className="btn btn-primary w-100 h-100 py-3 shadow-sm d-flex justify-content-center align-items-center">
+              Theses List
+            </Link>
+          </div>
+        </RoleGuard>
 
         {/* Teacher and Student can view Approved Theses*/}
         <div className="col-md-6">

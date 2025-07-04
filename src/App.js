@@ -33,6 +33,13 @@ import DefendedEditPage from 'pages/defended/DefendedEditPage';
 import DefendedDeletePage from 'pages/defended/DefendedDeletePage';
 
 
+//Student View
+//Thesis
+import StudentThesisPage from 'pages/thesis/StudentThesisPage';
+import StudentSubmitThesisPage from 'pages/thesis/StudentSubmitThesisPage';
+
+
+
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 
@@ -101,6 +108,12 @@ function App() {
         <Route path="/theses/defended" element={<DefendedPage />} />
         <Route path="/theses/defended/:id/edit" element={<DefendedEditPage />} />
         <Route path="/theses/defended/:id/delete" element={< DefendedDeletePage />} />
+
+
+        {/* Student View */}
+        {/* Thesis Info and Upload */}
+        <Route path="/theses/student/my-thesis" element={<StudentThesisPage />} />
+        <Route path="/theses/student/submit" element={<StudentSubmitThesisPage />} />
 
 
      {/* Add other pages here */}
