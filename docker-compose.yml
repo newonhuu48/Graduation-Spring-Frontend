@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: .
+    container_name: react-frontend
+    ports:
+      - "3000:80"   # maps container nginx port 80 to localhost:3000
