@@ -46,7 +46,7 @@ You can use the following test accounts to explore the app:
 
 > You must have [Docker](https://www.docker.com/) installed.
 
-### Run backend (Spring Boot + MySQL):
+### Run frontend (React App):
 
 ```bash
 docker-compose up --build
