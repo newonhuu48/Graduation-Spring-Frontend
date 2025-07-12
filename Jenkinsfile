@@ -4,8 +4,8 @@ pipeline {
     environment {
         NODEJS_HOME = tool name: 'NODE_JS_TOOL_NAME', type: 'NodeJSInstallation'
         PATH = "${env.NODEJS_HOME}/bin:${env.PATH}"
-        IMAGE_NAME = 'graduation-spring-frontend' // your image name
-        IMAGE_TAG = 'latest'                      // or branch, build number, etc.
+        IMAGE_NAME = 'graduation-spring-frontend'
+        IMAGE_TAG = 'latest'
     }
 
     stages {
@@ -33,6 +33,12 @@ pipeline {
             }
         }
 
+        stage('Run Cypress') {
+            steps {
+                sh 'npx cypress run'
+            }
+        }
+
         stage('Run Docker Compose') {
             steps {
                 sh 'docker compose -f docker-compose.yml up -d'
@@ -42,6 +48,7 @@ pipeline {
 
     post {
         always {
+            //Clean Files and Directories That Were Generated While Building
             cleanWs()
         }
         success {

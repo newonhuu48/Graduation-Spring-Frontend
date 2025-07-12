@@ -116,7 +116,7 @@ const SubmittedPage = () => {
       <h2>Submitted Theses List</h2>
 
       {/* Add New Submitted Button*/}
-      <Link to="/theses/submit" className="btn btn-primary mb-3">
+      <Link to="/theses/submit" data-cy="create-button" className="btn btn-primary mb-3">
         Add New Thesis
       </Link>
 

@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 const SubmittedTable = ({ submittedTheses, handleApprove, sortField, sortDir, onSort }) => {
   return (
-    <table className="table">
+    <table className="table" data-cy="submitted-table">
       <thead>
         <tr className="">
 
@@ -50,22 +50,24 @@ const SubmittedTable = ({ submittedTheses, handleApprove, sortField, sortDir, on
       <tbody>
 
         {submittedTheses.map(submitted => (
-          <tr key={submitted.id}>
-            <td>{submitted.id}</td>
-            <td>{submitted.title}</td>
-            <td>{submitted.studentNumber}</td>
-            <td>{submitted.studentId}</td>
+          <tr data-cy="submitted-row" key={submitted.id}>
+            <td data-cy="submitted-id">{submitted.id}</td>
+            <td data-cy="submitted-title">{submitted.title}</td>
+            <td data-cy="submitted-student-number">{submitted.studentNumber}</td>
+            <td data-cy="submitted-student-id">{submitted.studentId}</td>
 
             <RoleGuard allowedRoles={['ROLE_TEACHER']} >
               <td>
                 <Link
                   to={`/theses/submitted/${submitted.id}/edit`}
+                  data-cy="edit-button"
                   className="btn btn-primary btn-sm shadow-sm mx-1"
                 >
                   Edit
                 </Link>
 
                 <button
+                  data-cy="approve-button"
                   className="btn btn-success btn-sm shadow-sm mx-1"
                   onClick={() => handleApprove(submitted.id)}
                 >

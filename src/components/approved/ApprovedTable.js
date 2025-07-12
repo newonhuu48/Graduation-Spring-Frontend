@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 const ApprovedTable = ({ approvedTheses, handleApprove, sortField, sortDir, onSort }) => {
   return (
-    <table className="table">
+    <table className="table" data-cy="approved-table">
       <thead>
         <tr className="">
 
@@ -50,17 +50,18 @@ const ApprovedTable = ({ approvedTheses, handleApprove, sortField, sortDir, onSo
       <tbody>
 
         {approvedTheses.map(approved => (
-          <tr key={approved.id}>
-            <td>{approved.id}</td>
-            <td>{approved.title}</td>
-            <td>{approved.studentNumber}</td>
-            <td>{approved.studentId}</td>
+          <tr data-cy="approved-row" key={approved.id}>
+            <td data-cy="approved-id">{approved.id}</td>
+            <td data-cy="approved-title">{approved.title}</td>
+            <td data-cy="approved-student-number">{approved.studentNumber}</td>
+            <td data-cy="approved-student-id">{approved.studentId}</td>
 
 
             <RoleGuard allowedRoles={['ROLE_TEACHER']} >
               <td>
                   <Link
                     to={`/theses/approved/${approved.id}/defend`}
+                     data-cy="defend-button"
                     className="btn btn-primary btn-sm shadow-sm mx-1"
                   >
                     Defend

@@ -15,7 +15,7 @@ const StudentTable = ({ students, sortField, sortDir, onSort }) => {
 
 
   return (
-    <table className="table">
+    <table className="table" data-cy="student-table">
       <thead>
         <tr className="">
 
@@ -54,16 +54,17 @@ const StudentTable = ({ students, sortField, sortDir, onSort }) => {
       <tbody>
 
         {students.map(student => (
-          <tr key={student.id}>
-            <td>{student.id}</td>
-            <td>{student.firstName}</td>
-            <td>{student.lastName}</td>
-            <td>{student.studentNumber}</td>
+          <tr data-cy="student-row" key={student.id}>
+            <td data-cy="student-id">{student.id}</td>
+            <td data-cy="student-first-name">{student.firstName}</td>
+            <td data-cy="student-last-name">{student.lastName}</td>
+            <td data-cy="student-number">{student.studentNumber}</td>
 
             <RoleGuard allowedRoles={['ROLE_TEACHER']} >
               <td>
                 <Link
                   to={`/students/edit/${student.id}`}
+                  data-cy="edit-button"
                   className="btn btn-primary btn-sm shadow-sm mx-1"
                 >
                   Edit
@@ -72,6 +73,7 @@ const StudentTable = ({ students, sortField, sortDir, onSort }) => {
 
                 <Link
                   to={`/students/delete/${student.id}`}
+                  data-cy="delete-button"
                   className="btn btn-danger btn-sm shadow-sm mx-1"
                 >
                   Delete

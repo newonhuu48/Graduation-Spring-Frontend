@@ -105,7 +105,7 @@ const TeacherPage = () => {
       <h2>Teacher List</h2>
 
       {/* Add New Teacher Button*/}
-      <Link to="/teachers/create" className="btn btn-primary mb-3">
+      <Link to="/teachers/create" data-cy="create-button" className="btn btn-primary mb-3">
         Add New Teacher
       </Link>
 

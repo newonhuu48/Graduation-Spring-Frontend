@@ -19,7 +19,7 @@ function SubmittedEditForm ({ submitted, formData, error, onSubmit, onChange }) 
   return (
     <>
       {error && (
-        <div className="alert alert-danger">
+        <div data-cy="error-message" className="alert alert-danger">
           {error}
         </div>
       )}

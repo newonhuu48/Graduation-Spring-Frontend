@@ -23,7 +23,7 @@ const DefendedTable = ({ defendedTheses, handleApprove, sortField, sortDir, onSo
   };
 
   return (
-    <table className="table">
+    <table className="table" data-cy="defended-table">
       <thead>
         <tr className="">
 
@@ -69,24 +69,26 @@ const DefendedTable = ({ defendedTheses, handleApprove, sortField, sortDir, onSo
       <tbody>
 
         {defendedTheses.map(defended => (
-          <tr key={defended.id}>
-            <td>{defended.id}</td>
-            <td>{defended.title}</td>
-            <td>{defended.studentNumber}</td>
-            <td>{defended.studentId}</td>
-            <td>{GradeDisplayMap[defended.grade].toFixed(2)}</td> {/* Display Grades correctly from Look-up Table */}
+          <tr data-cy="defended-row" key={defended.id}>
+            <td data-cy="defended-id">{defended.id}</td>
+            <td data-cy="defended-title">{defended.title}</td>
+            <td data-cy="defended-student-number">{defended.studentNumber}</td>
+            <td data-cy="defended-student-id">{defended.studentId}</td>
+            <td data-cy="defended-grade">{GradeDisplayMap[defended.grade].toFixed(2)}</td> {/* Display Grades correctly from Look-up Table */}
 
 
             <RoleGuard allowedRoles={['ROLE_TEACHER']} >
               <td>
                   <Link
                     to={`/theses/defended/${defended.id}/edit`}
+                    data-cy="edit-button"
                     className="btn btn-primary btn-sm shadow-sm mx-1"
                   >
                     Edit
                   </Link>
                   <Link
                     to={`/theses/defended/${defended.id}/delete`}
+                    data-cy="delete-button"
                     className="btn btn-danger btn-sm shadow-sm mx-1"
                   >
                     Delete

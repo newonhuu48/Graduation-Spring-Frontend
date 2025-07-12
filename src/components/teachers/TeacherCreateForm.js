@@ -17,7 +17,7 @@ function TeacherCreateForm ({ formData, fieldErrors, error, onChange, onSubmit }
   return (
     <>
       {error && (
-        <div className="alert alert-danger">
+        <div data-cy="error-message" className="alert alert-danger">
           {error}
         </div>
       )}

@@ -16,7 +16,7 @@ function UserInfo({ claims, onLogout }) {
       <div>
         <strong>Roles:</strong> {roles.join(', ')}
       </div>
-      <button className="btn btn-outline-danger mt-3" onClick={onLogout}>
+      <button data-cy="logout-button" className="btn btn-outline-danger mt-3" onClick={onLogout}>
         Logout
       </button>
     </div>

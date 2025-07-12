@@ -5,12 +5,13 @@ function LoginForm({ form, onChange, onSubmit, error }) {
   return (
     <div className="container mt-5" style={{ maxWidth: '400px' }}>
       <h2 className="mb-4 text-center">Login</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
+      {error && <div data-cy="login-error" className="alert alert-danger">{error}</div>}
       <form onSubmit={onSubmit}>
         <div className="mb-3">
           <label className="form-label">Username</label>
           <input
             name="username"
+            data-cy="username-input"
             className="form-control"
             placeholder="Enter username"
             value={form.username}
@@ -23,6 +24,7 @@ function LoginForm({ form, onChange, onSubmit, error }) {
           <input
             type="password"
             name="password"
+            data-cy="password-input"
             className="form-control"
             placeholder="Enter password"
             value={form.password}
@@ -30,7 +32,7 @@ function LoginForm({ form, onChange, onSubmit, error }) {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary w-100">
+        <button type="submit" data-cy="login-button" className="btn btn-primary w-100">
           Login
         </button>
       </form>
