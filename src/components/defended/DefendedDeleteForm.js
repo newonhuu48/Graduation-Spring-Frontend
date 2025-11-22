@@ -41,7 +41,7 @@ function DefendedDeleteForm({ defended, error, onDelete }) {
 
         <form onSubmit={handleDelete}>
           <button type="submit" className="btn btn-danger mt-3">Delete</button>
-          <Link to="/defendeds" className="btn btn-secondary mt-3 ms-2">Cancel</Link>
+          <Link to="/theses/defended" className="btn btn-secondary mt-3 ms-2">Cancel</Link>
         </form>
       </div>
     </>

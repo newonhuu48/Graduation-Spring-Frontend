@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8080', // Backend Spring is here
+  baseURL: 'http://16.171.242.4:8080', // Backend Spring is here
 });
 
 instance.interceptors.request.use(config => {
